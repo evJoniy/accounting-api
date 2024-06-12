@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Interfaces\TransactionRepositoryInterface;
+use App\Repositories\TransactionRepository;
 use App\Services\TransactionService;
 use Illuminate\Support\ServiceProvider;
 
@@ -12,7 +14,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(TransactionService::class, new TransactionService());
+        $this->app->singleton(TransactionRepositoryInterface::class, TransactionRepository::class);
+
+        $this->app->singleton(TransactionService::class, function ($app) {
+            return new TransactionService($app->make(TransactionRepositoryInterface::class));
+        });
     }
 
     /**
