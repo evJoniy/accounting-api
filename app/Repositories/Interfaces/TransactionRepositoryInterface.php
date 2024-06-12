@@ -29,4 +29,22 @@ interface TransactionRepositoryInterface
      * @return void
      */
     public function deleteTransactionById(int $transactionId): void;
+
+    /**
+     * @param int $userId
+     * @param string $startDate
+     * @param string $endDate
+     * @param string $type
+     * @return float
+     */
+    public function getTransactionsSummaryByPeriodAndType(int $userId, string $startDate, string $endDate, string $type): float;
+
+    /**
+     * @param int $userId
+     * @param string $startDate
+     * @param string $endDate
+     * @return float
+     */
+    public function getTransactionsSummaryByPeriod(int $userId, string $startDate, string $endDate): float;
+
 }

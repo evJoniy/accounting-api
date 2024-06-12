@@ -16,6 +16,30 @@ class TransactionService
     ) {
     }
 
+    public function getSummary(array $request, $userId): array
+    {
+        $startDate = $request['startDate'] ?? null;
+        $endDate = $request['end_date'] ?? null;
+
+        if (array_key_exists('income', $request)) {
+            $income = $this->transactionRepository->getTransactionsSummaryByPeriodAndType($userId, $startDate, $endDate, 'income');
+        }
+
+        if (array_key_exists('expense', $request)) {
+            $income = $this->transactionRepository->getTransactionsSummaryByPeriodAndType($userId, $startDate, $endDate, 'expense');
+        }
+
+        if (array_key_exists('total', $request)) {
+            $total = $this->transactionRepository->getTransactionsSummaryByPeriod($userId, $startDate, $endDate);
+        }
+
+        return [
+            'income' => $income ?? null,
+            'expense' => $expense ?? null,
+            'total' => $total ?? null,
+        ];
+    }
+
     /**
      * @param Request $request
      * @return Collection|array
