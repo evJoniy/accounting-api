@@ -15,6 +15,12 @@ class TransactionRepository implements TransactionRepositoryInterface
     ) {
     }
 
+    /** @inheritdoc  */
+    public function getUserBalance(int $userId): float
+    {
+        return Transaction::where('author_id', $userId)->sum('amount');
+    }
+
     /** @inheritdoc */
     public function getAllTransactions(array $filters): Collection
     {

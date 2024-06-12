@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionSummaryController;
 use Illuminate\Http\Request;
@@ -14,4 +15,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+
+    Route::get('/balance/{currency}', [BalanceController::class, 'getBalance']);
 });

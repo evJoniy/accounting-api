@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Collection;
 interface TransactionRepositoryInterface
 {
     /**
+     * @param int $userId
+     * @return float
+     */
+    public function getUserBalance(int $userId): float;
+
+    /**
      * @param array $filters
      * @return Collection
      */
