@@ -2,47 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Transaction\DeleteRequest;
+use App\Http\Requests\Transaction\ShowRequest;
+use App\Http\Requests\Transaction\StoreRequest;
+use App\Services\TransactionService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+    public function __construct(
+        protected TransactionService $transactionService
+    ) {
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function index(Request $request): JsonResponse
     {
-        //
+        return new JsonResponse($this->transactionService->getAllTransactions($request));
     }
 
     /**
-     * Display the specified resource.
+     * @param StoreRequest $request
+     * @return JsonResponse
      */
-    public function show(string $id)
+    public function store(StoreRequest $request): JsonResponse
     {
-        //
+        $transaction = $this->transactionService->createNewTransaction($request->all());
+
+        return new JsonResponse($transaction, 201);
     }
 
     /**
-     * Update the specified resource in storage.
+     * @param ShowRequest $request
+     * @return JsonResponse
      */
-    public function update(Request $request, string $id)
+    public function show(ShowRequest $request): JsonResponse
     {
-        //
+        $transaction = $this->transactionService->getTransactionById($request->get('id'));
+
+        return new JsonResponse($transaction);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @param DeleteRequest $request
+     * @return JsonResponse
      */
-    public function destroy(string $id)
+    public function destroy(DeleteRequest $request): JsonResponse
     {
-        //
+        $this->transactionService->deleteTransactionById($request->get('id'));
+
+        return new JsonResponse();
     }
 }
