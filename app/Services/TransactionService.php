@@ -38,7 +38,11 @@ class TransactionService
         return $this->transactionRepository->getTransactionById($transactionId);
     }
 
-    public function createNewTransaction(array $data)
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    public function createNewTransaction(array $data): mixed
     {
         $transaction = $this->transactionRepository->createNewTransaction($data);
 
