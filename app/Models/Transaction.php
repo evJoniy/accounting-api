@@ -11,7 +11,14 @@ class Transaction extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['title', 'amount', 'author_id'];
+    /**
+     * @var string[]
+     */
+    protected $fillable = [
+        'title',
+        'amount',
+        'author_id'
+    ];
 
     /**
      * @return BelongsTo

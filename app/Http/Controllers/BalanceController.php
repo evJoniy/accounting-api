@@ -14,6 +14,11 @@ class BalanceController extends Controller
     ) {
     }
 
+    /**
+     * @param Request $request
+     * @param $currency
+     * @return JsonResponse
+     */
     public function getBalance(Request $request, $currency): JsonResponse
     {
         $balance = $this->balanceService->getUserBalanceInCurrency(Auth::id(), $currency);

@@ -14,6 +14,10 @@ class TransactionSummaryController extends Controller
     ) {
     }
 
+    /**
+     * @param SummaryRequest $request
+     * @return JsonResponse
+     */
     public function index(SummaryRequest $request): JsonResponse
     {
         $result = $this->transactionService->getSummary($request->all(), Auth::id());

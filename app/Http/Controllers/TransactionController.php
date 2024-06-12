@@ -22,7 +22,9 @@ class TransactionController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        return new JsonResponse($this->transactionService->getAllTransactions($request));
+        $transactions = $this->transactionService->getAllTransactions($request->only(['type', 'amount', 'date']));
+
+        return new JsonResponse($transactions);
     }
 
     /**

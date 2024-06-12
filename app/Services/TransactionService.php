@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Events\TransactionAdded;
 use App\Repositories\TransactionRepository;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
@@ -16,6 +15,11 @@ class TransactionService
     ) {
     }
 
+    /**
+     * @param array $request
+     * @param $userId
+     * @return array
+     */
     public function getSummary(array $request, $userId): array
     {
         $startDate = $request['startDate'] ?? null;
@@ -41,15 +45,11 @@ class TransactionService
     }
 
     /**
-     * @param Request $request
+     * @param array $filters
      * @return Collection|array
      */
-    public function getAllTransactions(Request $request): Collection|array
+    public function getAllTransactions(array $filters): Collection|array
     {
-        $filters = $request->only(['type', 'amount', 'date']);
-
-        //additional filters logic
-
         return $this->transactionRepository->getAllTransactions($filters);
     }
 

@@ -30,5 +30,4 @@ class TransactionFilter
 
         return $query;
     }
-
 }
