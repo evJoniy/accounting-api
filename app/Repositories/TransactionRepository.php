@@ -2,24 +2,22 @@
 
 namespace App\Repositories;
 
+use App\Filters\TransactionFilter;
 use App\Models\Transaction;
 use App\Repositories\Interfaces\TransactionRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 class TransactionRepository implements TransactionRepositoryInterface
 {
+    public function __construct(
+        protected TransactionFilter $filter
+    ) {
+    }
+
     /** @inheritdoc */
     public function getAllTransactions(array $filters): Collection
     {
-        return Transaction::query()
-            ->when($filters['type'] ?? null, fn($query, $type) => match ($type) {
-                'income' => $query->where('amount', '>', 0),
-                'expense' => $query->where('amount', '<', 0),
-                default => $query,
-            })
-            ->when($filters['amount'] ?? null, fn($query, $amount) => $query->where('amount', $amount))
-            ->when($filters['date'] ?? null, fn($query, $date) => $query->whereDate('created_at', $date))
-            ->get();
+        return $this->filter->getAll(Transaction::query())->get();
     }
 
     /** @inheritdoc */
