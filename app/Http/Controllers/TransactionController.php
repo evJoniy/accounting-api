@@ -9,6 +9,12 @@ use App\Services\TransactionService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+/**
+ * @OA\Tag(
+ *    name="Transactions",
+ *    description="API Endpoints for Transactions"
+ * )
+ */
 class TransactionController extends Controller
 {
     public function __construct(
@@ -17,6 +23,16 @@ class TransactionController extends Controller
     }
 
     /**
+     * @OA\Get(
+     *     path="/api/transactions",
+     *     summary="Get all transactions",
+     *     tags={"Transactions"},
+     *     @OA\Parameter(name="type", in="query", description="Type of the transaction", required=false, @OA\Schema(type="string")),
+     *     @OA\Parameter(name="amount", in="query", description="Amount of the transaction", required=false, @OA\Schema(type="number")),
+     *     @OA\Parameter(name="date", in="query", description="Date of the transaction", required=false, @OA\Schema(type="string", format="date")),
+     *     @OA\Response(response=200, description="A list of transactions", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Transaction")))
+     * )
+     *
      * @param Request $request
      * @return JsonResponse
      */
@@ -28,6 +44,14 @@ class TransactionController extends Controller
     }
 
     /**
+     * @OA\Post(
+     *     path="/api/transactions",
+     *     summary="Create new transaction",
+     *     tags={"Transactions"},
+     *     @OA\RequestBody(required=true, @OA\JsonContent(ref="#/components/schemas/StoreRequest")),
+     *     @OA\Response(response=200, description="Transaction created", @OA\JsonContent(ref="#/components/schemas/Transaction"))
+     * )
+     *
      * @param StoreRequest $request
      * @return JsonResponse
      */
@@ -39,6 +63,14 @@ class TransactionController extends Controller
     }
 
     /**
+     * @OA\Get(
+     *     path="/api/transactions/{id}",
+     *     summary="Get a transaction by ID",
+     *     tags={"Transactions"},
+     *     @OA\RequestBody(required=true, @OA\JsonContent(ref="#/components/schemas/ShowRequest")),
+     *     @OA\Response(response=200, description="Transaction details", @OA\JsonContent(ref="#/components/schemas/Transaction"))
+     * )
+     *
      * @param ShowRequest $request
      * @return JsonResponse
      */
@@ -50,6 +82,14 @@ class TransactionController extends Controller
     }
 
     /**
+     * @OA\Delete(
+     *     path="/api/transactions/{id}",
+     *     summary="Delete a transaction by ID",
+     *     tags={"Transactions"},
+     *     @OA\RequestBody(required=true, @OA\JsonContent(ref="#/components/schemas/DeleteRequest")),
+     *     @OA\Response(response=200, description="Transaction deleted")
+     * )
+     *
      * @param DeleteRequest $request
      * @return JsonResponse
      */

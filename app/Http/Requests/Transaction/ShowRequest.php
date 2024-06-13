@@ -5,6 +5,18 @@ namespace App\Http\Requests\Transaction;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @OA\Schema(
+ *      schema="ShowRequest",
+ *      type="object",
+ *      title="Show Request",
+ *      required={"id"},
+ *      properties={
+ *         @OA\Property(property="id", type="integer", example=1, description="The ID of the transaction")
+ *      }
+ *  )
+ * /
+ */
 class ShowRequest extends FormRequest
 {
     /**

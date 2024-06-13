@@ -5,6 +5,20 @@ namespace App\Http\Requests\Transaction;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @OA\Schema(
+ *      schema="StoreRequest",
+ *      type="object",
+ *      title="Store Request",
+ *      required={"amount", "author_id"},
+ *      properties={
+ *          @OA\Property(property="title", type="string", nullable=true),
+ *          @OA\Property(property="amount", type="float", example=100),
+ *          @OA\Property(property="author_id", type="integer", example=1)
+ *      }
+ *  )
+ * /
+ */
 class StoreRequest extends FormRequest
 {
     /**
@@ -24,7 +38,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'title' => 'nullable|string',
-            'amount' => 'required|integer',
+            'amount' => 'required|float',
             'author_id' => 'required|exists:users,id',
         ];
     }

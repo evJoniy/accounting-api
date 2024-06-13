@@ -7,6 +7,12 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Services\TransactionService;
 
+/**
+ * @OA\Tag(
+ *    name="Transactions",
+ *    description="API Endpoints for Transactions Summary"
+ * )
+ */
 class TransactionSummaryController extends Controller
 {
     public function __construct(
@@ -15,6 +21,14 @@ class TransactionSummaryController extends Controller
     }
 
     /**
+     * @OA\Get(
+     *     path="/api/transaction-summary",
+     *     summary="Get transaction summary",
+     *     tags={"TransactionSummary"},
+     *     @OA\RequestBody(required=true, @OA\JsonContent(ref="#/components/schemas/StoreRequest")),
+     *     @OA\Response(response=200, description="Transaction summary", @OA\JsonContent(type="object"))
+     * )
+     *
      * @param SummaryRequest $request
      * @return JsonResponse
      */

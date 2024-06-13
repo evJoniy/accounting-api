@@ -5,6 +5,18 @@ namespace App\Http\Requests\Transaction;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @OA\Schema(
+ *      schema="DeleteRequest",
+ *      type="object",
+ *      title="Delete Request",
+ *      required={"id"},
+ *      properties={
+ *         @OA\Property(property="id", type="integer", example=1, description="The ID of the transaction")
+ *      }
+ *  )
+ * /
+ */
 class DeleteRequest extends FormRequest
 {
     /**
