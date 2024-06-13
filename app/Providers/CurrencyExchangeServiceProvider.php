@@ -12,6 +12,6 @@ class CurrencyExchangeServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton('currency-exchange', new CurrencyExchangeFactory());
+        $this->app->singleton('currency-exchange', CurrencyExchangeFactory::class);
     }
 }
